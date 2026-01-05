@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: etl-postgres
+    environment:
+      POSTGRES_USER: etl
+      POSTGRES_PASSWORD: etl
+      POSTGRES_DB: etl_metadata
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  spark:
+    build: ./docker/spark
+    container_name: etl-spark
+    volumes:
+      - ./spark-app:/opt/spark-app
+      - ./data:/opt/data
+    environment:
+      - SPARK_CLASSPATH=/opt/jars/postgresql.jar
+    depends_on:
+      - postgres
