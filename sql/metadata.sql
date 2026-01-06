@@ -24,3 +24,13 @@ INSERT INTO popso_conti VALUES
 (1, 'IT00TEST0001', 100.00, '001', NOW() - INTERVAL '2 days'),
 (2, 'IT00TEST0002', 200.50, '002', NOW() - INTERVAL '1 days'),
 (3, 'IT00TEST0003', -50.00, '003', NOW());
+
+CREATE TABLE map_filiale (
+    cod_popso TEXT PRIMARY KEY,
+    cod_bper TEXT
+);
+
+INSERT INTO map_filiale VALUES
+('001', 'B001'),
+('002', 'B002'),
+('003', 'B003');

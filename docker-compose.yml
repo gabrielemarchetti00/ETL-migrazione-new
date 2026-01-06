@@ -20,6 +20,7 @@ services:
     volumes:
       - ./spark-app:/opt/spark-app
       - ./data:/opt/data
+      - ./docker/jars:/opt/jars
     environment:
       - SPARK_CLASSPATH=/opt/jars/postgresql.jar
     depends_on:

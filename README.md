@@ -5,7 +5,20 @@ docker-compose up -d
 docker-compose run --rm spark /opt/spark/bin/spark-submit /opt/spark-app/test_parquet.py
 
 # ricrea container
-docker-compose down
+docker-compose down -v
+docker-compose build --no-cache
 docker-compose up -d postgres
 
-docker-compose run --rm spark /opt/spark/bin/spark-submit /opt/spark-app/ingest_conti.py
+# runna spark
+docker-compose run --rm spark /opt/spark/bin/spark-submit --jars /opt/jars/postgresql.jar /opt/spark-app/ingest_conti.py
+
+# vedi file dentro container
+docker-compose run --rm spark bash
+
+# entro in postgres
+docker exec -it etl-postgres psql -U etl etl_metadata
+\dt: vedo tabelle
+\q: esci
+
+# normalizzazione
+docker-compose run --rm spark /opt/spark/bin/spark-submit --jars file:///opt/jars/postgresql.jar /opt/spark-app/normalize_conti.py
