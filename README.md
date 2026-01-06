@@ -22,3 +22,6 @@ docker exec -it etl-postgres psql -U etl etl_metadata
 
 # normalizzazione
 docker-compose run --rm spark /opt/spark/bin/spark-submit --jars file:///opt/jars/postgresql.jar /opt/spark-app/normalize_conti.py
+
+# esportazione su file csv
+docker-compose run --rm spark /opt/spark/bin/spark-submit /opt/spark-app/load_conti_csv.py
